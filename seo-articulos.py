@@ -11,7 +11,7 @@ options.add_argument('--headless')
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 # URL de tu sitio
-url = 'https://www.hostingnet.cl/web-hosting'
+url = 'https://www.tusitio.com/palabra'
 
 # Función para verificar elementos SEO
 def check_seo_elements(url):
@@ -34,14 +34,21 @@ def check_seo_elements(url):
     except:
         print("No se encontró meta descripción.")
 
-    # Verificar etiquetas alt en imágenes
+    # Verificar etiquetas alt en imágenes y nombres de archivo
+    path_word = urlparse(url).path.strip('/').split('/')[-1]
     images = driver.find_elements(By.TAG_NAME, 'img')
     for img in images:
         alt_text = img.get_attribute('alt')
+        src = img.get_attribute('src')
         if alt_text:
             print(f"Etiqueta alt encontrada: {alt_text}")
         else:
-            print(f"Imagen sin etiqueta alt: {img.get_attribute('src')}")
+            print(f"Imagen sin etiqueta alt: {src}")
+
+        if path_word.lower() in src.lower():
+            print(f"Nombre de imagen contiene la palabra de la URL: {src}")
+        else:
+            print(f"Nombre de imagen no contiene la palabra de la URL: {src}")
 
     # Verificar enlaces rotos
     links = driver.find_elements(By.TAG_NAME, 'a')
@@ -73,7 +80,6 @@ def check_seo_elements(url):
 
     # Verificar encabezados H1
     h1_tags = driver.find_elements(By.TAG_NAME, 'h1')
-    path_word = urlparse(url).path.strip('/').split('/')[-1]
     h1_found = False
     for h1 in h1_tags:
         print(f"Encabezado H1 encontrado: {h1.text}")
@@ -91,6 +97,14 @@ def check_seo_elements(url):
         print(f"Favicon encontrado: {favicon.get_attribute('href')}")
     except:
         print("No se encontró favicon.")
+
+    # Verificar el tamaño de la página
+    page_source = driver.page_source
+    page_size_kb = len(page_source.encode('utf-8')) / 1024
+    if page_size_kb > 2048:
+        print(f"Advertencia: El tamaño de la página es {page_size_kb:.2f} KB, lo que excede los 2 MB.")
+    else:
+        print(f"El tamaño de la página es {page_size_kb:.2f} KB.")
 
     print("Verificación SEO completa.")
 
