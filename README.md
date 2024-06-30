@@ -1,6 +1,6 @@
 # Script de Verificación SEO
 
-Este script utiliza Selenium para realizar una serie de comprobaciones SEO, son básicas, pero de mucha utilidad cuando se sube un nuevo artículo o un producto a tu tienda ecommerce. Básicamente, verifica varios elementos que son iniciales, pero claves, para asegurar un rendimiento óptimo en SEO.
+Este script utiliza Selenium para realizar una serie de comprobaciones SEO, son básicas, pero de mucha utilidad cuando se sube un nuevo artículo o un nuevo producto a tu tienda ecommerce. Básicamente, verifica varios elementos que son iniciales, pero claves, para asegurar un rendimiento óptimo en SEO. El uso de recursos del servidor, es muy bajo, casi despreciable. Se puede utilizar con total libertad.
 
 ## Funcionalidades
 
