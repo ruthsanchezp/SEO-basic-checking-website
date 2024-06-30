@@ -102,18 +102,18 @@ def check_seo_elements(url):
         count = body_text.lower().count(keyword.lower())
         print(f"La palabra clave '{keyword}' aparece {count} veces.")
 
-    # Verificar encabezados H1
-    h1_tags = driver.find_elements(By.TAG_NAME, 'h1')
-    h1_found = False
-    for h1 in h1_tags:
-        print(f"Encabezado H1 encontrado: {h1.text}")
-        if path_word.lower() in h1.text.lower():
-            h1_found = True
-    
-    if h1_found:
-        print(f"La palabra '{path_word}' de la URL está presente en el H1.")
-    else:
-        print(f"La palabra '{path_word}' de la URL no se encontró en el H1.")
+    # Verificar encabezados H1, H2, H3
+    headers = {'H1': 'h1', 'H2': 'h2', 'H3': 'h3'}
+    for header, tag in headers.items():
+        tags = driver.find_elements(By.TAG_NAME, tag)
+        if tags:
+            print(f"\n{header} encontrados:")
+            for t in tags:
+                print(f"  - {t.text}")
+                if path_word.lower() in t.text.lower():
+                    print(f"    La palabra '{path_word}' de la URL está presente en {header}.")
+        else:
+            print(f"No se encontraron {header}.")
 
     # Verificar la presencia de un favicon
     try:
