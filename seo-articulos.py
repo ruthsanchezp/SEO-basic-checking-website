@@ -94,6 +94,9 @@ def check_seo_elements(url):
 
     # Análisis básico de palabras clave
     body_text = driver.find_element(By.TAG_NAME, 'body').text
+    word_count = len(body_text.split())
+    print(f"El artículo tiene {word_count} palabras.")
+
     keywords = ['tu-palabra-clave1', 'tu-palabra-clave2']
     for keyword in keywords:
         count = body_text.lower().count(keyword.lower())
