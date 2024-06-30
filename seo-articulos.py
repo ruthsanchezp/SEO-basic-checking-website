@@ -37,9 +37,12 @@ def check_seo_elements(url):
     # Verificar etiquetas alt en imágenes y nombres de archivo
     path_word = urlparse(url).path.strip('/').split('/')[-1]
     images = driver.find_elements(By.TAG_NAME, 'img')
+    svg_count = 0
+
     for img in images:
         alt_text = img.get_attribute('alt')
         src = img.get_attribute('src')
+
         if alt_text:
             print(f"Etiqueta alt encontrada: {alt_text}")
         else:
@@ -49,6 +52,19 @@ def check_seo_elements(url):
             print(f"Nombre de imagen contiene la palabra de la URL: {src}")
         else:
             print(f"Nombre de imagen no contiene la palabra de la URL: {src}")
+
+        if src.endswith('.svg'):
+            svg_count += 1
+        else:
+            try:
+                img_response = requests.head(src, allow_redirects=True)
+                img_size_kb = int(img_response.headers.get('Content-Length', 0)) / 1024
+                if img_size_kb > 1024:
+                    print(f"Advertencia: La imagen {src} pesa {img_size_kb:.2f} KB, excede 1 MB.")
+            except requests.RequestException as e:
+                print(f"Error al verificar la imagen: {src} ({e})")
+
+    print(f"Se encontraron {svg_count} imágenes SVG.")
 
     # Verificar enlaces rotos
     links = driver.find_elements(By.TAG_NAME, 'a')
@@ -105,6 +121,20 @@ def check_seo_elements(url):
         print(f"Advertencia: El tamaño de la página es {page_size_kb:.2f} KB, lo que excede los 2 MB.")
     else:
         print(f"El tamaño de la página es {page_size_kb:.2f} KB.")
+
+    # Verificar la presencia de videos y su tamaño
+    video_extension = '.mp4'  # Cambiar según la extensión deseada
+    videos = driver.find_elements(By.TAG_NAME, 'video')
+    for video in videos:
+        src = video.get_attribute('src')
+        if src and src.endswith(video_extension):
+            try:
+                video_response = requests.head(src, allow_redirects=True)
+                video_size_mb = int(video_response.headers.get('Content-Length', 0)) / (1024 * 1024)
+                if video_size_mb > 15:
+                    print(f"Advertencia: El video {src} pesa {video_size_mb:.2f} MB, excede 15 MB.")
+            except requests.RequestException as e:
+                print(f"Error al verificar el video: {src} ({e})")
 
     print("Verificación SEO completa.")
 
