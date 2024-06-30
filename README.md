@@ -1,6 +1,6 @@
 # Script de Verificación SEO
 
-Este script utiliza Selenium para realizar una serie de comprobaciones SEO en tu sitio web alojado en `hostingnet.cl`. Verifica varios elementos clave para asegurar un rendimiento óptimo en SEO.
+Este script utiliza Selenium para realizar una serie de comprobaciones SEO, son básicas, pero de mucha utilidad cuando se sube un nuevo artículo o un producto a tu tienda ecommerce. Básicamente, verifica varios elementos que son iniciales, pero claves, para asegurar un rendimiento óptimo en SEO.
 
 ## Funcionalidades
 
