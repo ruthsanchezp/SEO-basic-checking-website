@@ -14,10 +14,10 @@ Este script utiliza Selenium para realizar una serie de comprobaciones SEO, son 
 8. **Enlaces Rotos**: Revisa todos los enlaces en la página e informa de cualquier enlace roto (código de estado HTTP 400 o superior).
 9. **Enlaces Internos**: Confirma la presencia de al menos dos enlaces internos en el sitio.
 10. **Análisis de Palabras Clave**: Cuenta las ocurrencias de palabras clave especificadas en el cuerpo de la página.
-11. **Encabezados H1**: Lista todos los `H1` encontrados y verifica que la palabra de la ruta URL esté presente en al menos un `H1`.
-12. **Favicon**: Comprueba la existencia de un favicon en el sitio.
-13. **Tamaño de la Página**: Verifica el tamaño de la página y alerta si excede los 2 MB.
-14.  **Conteo de palabras**: Cuenta las palabras del artículo/página, mostrando la cantidad.
+11. **Encabezados**: Lista todos los `H1` `H2` `H3` encontrados y verifica que la palabra de la ruta URL esté presente en cada uno de ellos.
+13. **Favicon**: Comprueba la existencia de un favicon en el sitio.
+14. **Tamaño de la Página**: Verifica el tamaño de la página y alerta si excede los 2 MB.
+15.  **Conteo de palabras**: Cuenta las palabras del artículo/página, mostrando la cantidad.
 
 ## Cómo Usar
 
