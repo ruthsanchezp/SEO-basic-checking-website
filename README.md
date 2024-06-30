@@ -17,6 +17,7 @@ Este script utiliza Selenium para realizar una serie de comprobaciones SEO, son 
 11. **Encabezados H1**: Lista todos los `H1` encontrados y verifica que la palabra de la ruta URL esté presente en al menos un `H1`.
 12. **Favicon**: Comprueba la existencia de un favicon en el sitio.
 13. **Tamaño de la Página**: Verifica el tamaño de la página y alerta si excede los 2 MB.
+14.  **Conteo de palabras**: Cuenta las palabras del artículo/página, mostrando la cantidad.
 
 ## Cómo Usar
 
