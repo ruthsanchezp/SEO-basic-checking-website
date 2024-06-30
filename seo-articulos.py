@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import requests
 from urllib.parse import urlparse
+import time
 
 # Configuración del navegador
 options = webdriver.ChromeOptions()
@@ -15,7 +16,11 @@ url = 'https://www.tusitio.com/palabra'
 
 # Función para verificar elementos SEO
 def check_seo_elements(url):
+    start_time = time.time()
     driver.get(url)
+    load_time = time.time() - start_time
+
+    print(f"Tiempo de carga del servidor: {load_time:.2f} segundos")
 
     # Verificar el título
     title = driver.title
@@ -121,20 +126,6 @@ def check_seo_elements(url):
         print(f"Advertencia: El tamaño de la página es {page_size_kb:.2f} KB, lo que excede los 2 MB.")
     else:
         print(f"El tamaño de la página es {page_size_kb:.2f} KB.")
-
-    # Verificar la presencia de videos y su tamaño
-    video_extension = '.mp4'  # Cambiar según la extensión deseada
-    videos = driver.find_elements(By.TAG_NAME, 'video')
-    for video in videos:
-        src = video.get_attribute('src')
-        if src and src.endswith(video_extension):
-            try:
-                video_response = requests.head(src, allow_redirects=True)
-                video_size_mb = int(video_response.headers.get('Content-Length', 0)) / (1024 * 1024)
-                if video_size_mb > 15:
-                    print(f"Advertencia: El video {src} pesa {video_size_mb:.2f} MB, excede 15 MB.")
-            except requests.RequestException as e:
-                print(f"Error al verificar el video: {src} ({e})")
 
     print("Verificación SEO completa.")
 
